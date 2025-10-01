@@ -155,13 +155,9 @@
 	if(!client)
 		return
 
-	//if it has been more than 0.5 seconds since the last time we heard this, we hear it again
-	if(last_radio_sound + 0.5 SECONDS < world.time && src != speaker)
-		playsound(loc, 'sound/effects/radiochatter.ogg', 10, 0, -1, falloff = -3)
-		last_radio_sound = world.time
-
 	if(IS_ALIVE_BUT_UNCONSCIOUS(src)) //If unconscious or sleeping
 		hear_sleep(message)
+		play_radio_chatter(speaker)
 		return
 
 	var/track = null
@@ -265,6 +261,7 @@
 			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
 	else
 		on_hear_radio(part_a, speaker_name, track, part_b, formatted)
+		play_radio_chatter(speaker)
 
 /proc/say_timestamp()
 	return "<span class='say_quote'>\[[stationtime2text()]\]</span>"
@@ -335,3 +332,9 @@
 		heard = "<span class = 'game_say'>...<i>You almost hear someone talking</i>...</span>"
 
 	to_chat(src, heard)
+
+/mob/proc/play_radio_chatter(var/speaker)
+	//if it has been more than 0.5 seconds since the last time we heard this, we hear it again
+	if(last_radio_sound + 0.5 SECONDS < world.time && src != speaker)
+		playsound(loc, 'sound/effects/radiochatter.ogg', 10, 0, -1, falloff = -3)
+		last_radio_sound = world.time
