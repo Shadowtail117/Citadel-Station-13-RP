@@ -144,7 +144,7 @@
 	if(legacy_remap)
 		. = INFINITY
 		for(var/mat_id in legacy_remap)
-			. = min(., (item_mount.material_get_amount(src, null, mat_id) / legacy_remap[mat_id]))
+			. = min(., (item_mount.material_get_amount(src, null, mat_id) / legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT))
 	else
 		. = item_mount.material_get_amount(src, null, material.id) / SHEET_MATERIAL_AMOUNT
 
@@ -153,7 +153,7 @@
 	if(legacy_remap)
 		. = INFINITY
 		for(var/mat_id in legacy_remap)
-			. = min(., (item_mount.material_get_capacity(src, null, mat_id) / legacy_remap[mat_id]))
+			. = min(., (item_mount.material_get_capacity(src, null, mat_id) / legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT))
 	else
 		. = item_mount.material_get_capacity(src, null, material.id) / SHEET_MATERIAL_AMOUNT
 
@@ -168,7 +168,7 @@
 			amount = min(amount, has_remaining_capacity)
 		. = amount
 		for(var/mat_id in legacy_remap)
-			item_mount.material_give_amount(src, null, mat_id, amount * legacy_remap[mat_id])
+			item_mount.material_give_amount(src, null, mat_id, amount * legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT)
 	else
 		. = item_mount.material_give_amount(src, null, material.id, amount * SHEET_MATERIAL_AMOUNT, force)
 
@@ -177,7 +177,7 @@
 	if(legacy_remap)
 		// we have to be atomic, so do an expensive check first
 		for(var/mat_id in legacy_remap)
-			item_mount.material_use_amount(src, null, mat_id, amount * legacy_remap[mat_id])
+			item_mount.material_use_amount(src, null, mat_id, amount * legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT)
 	else
 		. = item_mount.material_use_amount(src, null, material.id, amount * SHEET_MATERIAL_AMOUNT)
 

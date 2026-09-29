@@ -29,17 +29,17 @@
 /proc/__construct_legacy_stack_provider_material_map()
 	return list(
 		/obj/item/stack/rods = list(
-			/datum/prototype/material/steel::id = SHEET_MATERIAL_AMOUNT / 2,
+			/datum/prototype/material/steel::id = 0.5,
 		),
 		/obj/item/stack/tile/floor = list(
-			/datum/prototype/material/steel::id = SHEET_MATERIAL_AMOUNT / 4,
+			/datum/prototype/material/steel::id = 0.25,
 		),
 		/obj/item/stack/material/glass/reinforced = list(
-			/datum/prototype/material/glass::id = SHEET_MATERIAL_AMOUNT / 1,
-			/datum/prototype/material/steel::id = SHEET_MATERIAL_AMOUNT / 2,
+			/datum/prototype/material/glass::id = 1,
+			/datum/prototype/material/steel::id = 0.5,
 		),
 		/obj/item/stack/tile/wood = list(
-			/datum/prototype/material/wood_plank::id = SHEET_MATERIAL_AMOUNT / 4,
+			/datum/prototype/material/wood_plank::id = 0.25,
 		),
 	)
 
@@ -558,7 +558,7 @@
 	if(legacy_remap)
 		. = INFINITY
 		for(var/mat_id in legacy_remap)
-			. = min(., (item_mount.material_get_amount(src, null, mat_id) / legacy_remap[mat_id]))
+			. = min(., (item_mount.material_get_amount(src, null, mat_id) / legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT))
 	else
 		. = item_mount.stack_get_amount(src, null, stack_type)
 
@@ -571,7 +571,7 @@
 	if(legacy_remap)
 		. = INFINITY
 		for(var/mat_id in legacy_remap)
-			. = min(., (item_mount.material_get_capacity(src, null, mat_id) / legacy_remap[mat_id]))
+			. = min(., (item_mount.material_get_capacity(src, null, mat_id) / legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT))
 	else
 		. = item_mount.stack_get_capacity(src, null, stack_type)
 
@@ -590,7 +590,7 @@
 			amount = min(amount, has_remaining_capacity)
 		. = amount
 		for(var/mat_id in legacy_remap)
-			item_mount.material_give_amount(src, null, mat_id, amount * legacy_remap[mat_id])
+			item_mount.material_give_amount(src, null, mat_id, amount * legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT)
 	else
 		. = item_mount.stack_give_amount(src, null, stack_type, amount * SHEET_MATERIAL_AMOUNT, force)
 
@@ -602,7 +602,7 @@
 	var/list/legacy_remap = legacy_stack_provider_material_map[type]
 	if(legacy_remap)
 		for(var/mat_id in legacy_remap)
-			. = item_mount.material_use_amount(src, null, mat_id, amount * legacy_remap[mat_id])
+			. = item_mount.material_use_amount(src, null, mat_id, amount * legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT)
 	else
 		. = item_mount.stack_use_amount(src, null, stack_type, amount)
 

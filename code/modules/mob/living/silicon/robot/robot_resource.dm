@@ -38,7 +38,7 @@
 
 /datum/robot_resource/provisioned/preset/wire
 	name = "wire spool"
-	amount_max = 25
+	amount_max = 120
 	regen_per_second = 30
 
 /datum/robot_resource/provisioned/preset/material
@@ -46,17 +46,17 @@
 
 /datum/robot_resource/provisioned/preset/material/steel
 	name = "provisioned steel holder"
-	amount_max = 50 * SHEET_MATERIAL_AMOUNT
+	amount_max = 100 * SHEET_MATERIAL_AMOUNT
 	regen_per_second = 2 * SHEET_MATERIAL_AMOUNT
 
 /datum/robot_resource/provisioned/preset/material/glass
 	name = "provisioned glass holder"
-	amount_max = 50 * SHEET_MATERIAL_AMOUNT
+	amount_max = 100 * SHEET_MATERIAL_AMOUNT
 	regen_per_second = 2 * SHEET_MATERIAL_AMOUNT
 
 /datum/robot_resource/provisioned/preset/material/wood
 	name = "provisioned wood holder"
-	amount_max = 30 * SHEET_MATERIAL_AMOUNT
+	amount_max = 50 * SHEET_MATERIAL_AMOUNT
 	regen_per_second = 0.75 * SHEET_MATERIAL_AMOUNT
 
 /datum/robot_resource/provisioned/preset/material/plasteel
@@ -105,5 +105,5 @@
 
 /datum/robot_resource/provisioned/preset/water
 	name = "water tank"
-	amount_max = 100
+	amount_max = 500
 	regen_per_second = 15
