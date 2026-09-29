@@ -601,8 +601,10 @@
 /obj/item/stack/proc/pull_from_provider(amount)
 	var/list/legacy_remap = legacy_stack_provider_material_map[type]
 	if(legacy_remap)
+		// we have to be atomic, so do an expensive check first
+		var/has_remaining = check_provider_remaining()
 		for(var/mat_id in legacy_remap)
-			. = item_mount.material_use_amount(src, null, mat_id, amount * legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT)
+			. = item_mount.material_use_amount(src, null, mat_id, min(amount, has_remaining) * legacy_remap[mat_id] * SHEET_MATERIAL_AMOUNT)
 	else
 		. = item_mount.stack_use_amount(src, null, stack_type, amount)
 
